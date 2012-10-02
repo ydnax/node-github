@@ -313,7 +313,7 @@ var Client = module.exports = function(config) {
                     if (!api[section]) {
                         throw new Error("Unsupported route section, not implemented in version " +
                             self.version + " for route '" + endPoint + "' and block: " +
-                            JSON.stringify(block));
+                            Util.JSON_stringify(block, false));
                     }
 
                     if (!api[section][funcName]) {
@@ -321,7 +321,7 @@ var Client = module.exports = function(config) {
                             Util.log("Tried to call " + funcName);
                         throw new Error("Unsupported route, not implemented in version " +
                             self.version + " for route '" + endPoint + "' and block: " +
-                            JSON.stringify(block));
+                            Util.JSON_stringify(block, false));
                     }
 
                     if (!self[section]) {
@@ -459,7 +459,7 @@ var Client = module.exports = function(config) {
         };
         if (hasBody) {
             if (format == "json")
-                query = JSON.stringify(query);
+                query = Util.JSON_stringify(query, false);
             else
                 query = query.join("&");
             headers["content-length"] = query.length;
@@ -502,7 +502,7 @@ var Client = module.exports = function(config) {
         var req = require(protocol).request(options, function(res) {
             if (self.debug) {
                 console.log("STATUS: " + res.statusCode);
-                console.log("HEADERS: " + JSON.stringify(res.headers));
+                console.log("HEADERS: " + Util.JSON_stringify(res.headers, false));
             }
             res.setEncoding("utf8");
             var data = "";
