@@ -138,3 +138,19 @@ exports.log = function() {
         console.log(pfx + " " + line);
     });
 };
+
+/**
+ * Util#JSON_stringify(arg1, [arg2])->string
+ *     - arg1 object to stringify
+ *     - arg2 escape unicode characters
+ * Escape Unicode characters for the github api.
+ * http://stackoverflow.com/questions/4901133/json-and-escaping-characters
+ **/
+exports.JSON_stringify = function(s, emit_unicode) {
+   var json = JSON.stringify(s);
+   return emit_unicode ? json : json.replace(/[\u007f-\uffff]/g,
+      function(c) { 
+        return '\\u'+('0000'+c.charCodeAt(0).toString(16)).slice(-4);
+      }
+   );
+};

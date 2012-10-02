@@ -395,7 +395,7 @@ var Client = module.exports = function(config) {
             var val;
             if (valFormat != "json" && typeof msg[paramName] == "object") {
                 try {
-                    msg[paramName] = JSON.stringify(msg[paramName]);
+                    msg[paramName] = Util.JSON_stringify(msg[paramName], false);
                     val = encodeURIComponent(msg[paramName]);
                 }
                 catch (ex) {
